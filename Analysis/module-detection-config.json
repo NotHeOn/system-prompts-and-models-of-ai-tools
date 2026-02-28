@@ -1,0 +1,286 @@
+{
+  "meta": {
+    "version": "1.0",
+    "scope": "xml/system-prompt (10 files) + markdown/system-prompt (11 files)",
+    "purpose": "Per-module detection patterns for programmatic deep analysis (Phase 2)"
+  },
+  "modules": [
+    {
+      "id": "identity",
+      "name_zh": "身份定义",
+      "name_en": "Identity Definition",
+      "tier": "core",
+      "coverage": {
+        "xml":     { "count": 6,  "total": 10 },
+        "markdown":{ "count": 8,  "total": 11 },
+        "others_grep": { "count": 49, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": ["identity", "core_identity", "purpose", "objective", "primary_directive"]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": ["identity", "role", "persona", "who you are", "about"]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": ["[Yy]ou are", "[Yy]our (name|role|goal|purpose) is", "[Aa]ct as"]
+        }
+      }
+    },
+    {
+      "id": "behavior",
+      "name_zh": "行为规范",
+      "name_en": "Behavioral Guidelines",
+      "tier": "core",
+      "coverage": {
+        "xml":     { "count": 7,  "total": 10 },
+        "markdown":{ "count": 9,  "total": 11 },
+        "others_grep": { "count": 50, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": [
+            "behavioral_rules", "guidelines", "user_rules", "general_guidelines",
+            "communication_style", "reply_guideline", "communication",
+            "making_code_changes", "workflows", "following_instructions"
+          ]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": [
+            "guideline", "rule", "behavior", "convention", "style",
+            "following", "instruction", "principle", "preference"
+          ]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": [
+            "[Yy]ou (must|should|always|never)",
+            "ALWAYS", "NEVER", "IMPORTANT",
+            "[Dd]o not", "[Mm]ake sure"
+          ]
+        }
+      }
+    },
+    {
+      "id": "tools",
+      "name_zh": "能力/工具",
+      "name_en": "Capabilities & Tools",
+      "tier": "core",
+      "coverage": {
+        "xml":     { "count": 5,  "total": 10 },
+        "markdown":{ "count": 7,  "total": 11 },
+        "others_grep": { "count": 46, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": [
+            "tool_calling", "tool_list", "tool_instruction", "tool_guidelines",
+            "capabilities", "function_calls", "toolcall_guideline",
+            "tool_parameter_guideline"
+          ]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": [
+            "tool", "function", "capabilities", "available", "commands",
+            "mcp", "tool calling", "tool use"
+          ]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": [
+            "[Tt]ool[_\\s][Cc]all",
+            "[Ff]unction[_\\s][Cc]all",
+            "[Aa]vailable [Tt]ool",
+            "namespace functions"
+          ]
+        }
+      }
+    },
+    {
+      "id": "output_format",
+      "name_zh": "输出格式",
+      "name_en": "Output Format",
+      "tier": "recommended",
+      "coverage": {
+        "xml":     { "count": 5,  "total": 10 },
+        "markdown":{ "count": 5,  "total": 11 },
+        "others_grep": { "count": 32, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": [
+            "response_format", "response_formatting_instructions", "format_rules",
+            "response_protocol", "response_structure_requirements",
+            "communication_style", "reply_guideline", "markdown_formatting_rules"
+          ]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": [
+            "format", "output", "response style", "response format",
+            "formatting", "display", "rendering"
+          ]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": [
+            "(response|output|reply) format",
+            "[Ff]ormat your",
+            "[Ff]ormatting"
+          ]
+        }
+      }
+    },
+    {
+      "id": "constraints",
+      "name_zh": "约束/安全",
+      "name_en": "Constraints & Safety",
+      "tier": "recommended",
+      "coverage": {
+        "xml":     { "count": 4,  "total": 10 },
+        "markdown":{ "count": 4,  "total": 11 },
+        "others_grep": { "count": 28, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": [
+            "restrictions", "forbidden_behaviors", "strict_prohibitions",
+            "operational_constraints", "content_constraints",
+            "critical_security_rules", "prohibited_actions",
+            "harmful_content_safety", "meta_safety_instructions"
+          ]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": [
+            "restrict", "prohibit", "forbidden", "security", "safety",
+            "constraint", "limit", "refuse", "critical", "prohibited"
+          ]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": [
+            "[Mm]ust not",
+            "[Pp]rohibit",
+            "[Ff]orbidden",
+            "[Rr]efuse to",
+            "NEVER.{0,40}(harm|danger|illeg|malici)"
+          ]
+        }
+      }
+    },
+    {
+      "id": "environment",
+      "name_zh": "上下文/环境",
+      "name_en": "Context & Environment",
+      "tier": "situational",
+      "coverage": {
+        "xml":     { "count": 3,  "total": 10 },
+        "markdown":{ "count": 5,  "total": 11 },
+        "others_grep": { "count": 32, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": [
+            "environment", "user_information", "persistent_context",
+            "user_privacy", "user_info", "env", "system_context",
+            "user_rules"
+          ]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": [
+            "environment", "system information", "platform", "context",
+            "current date", "working directory", "system"
+          ]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": [
+            "[Ww]orking [Dd]irectory",
+            "[Cc]urrent (os|platform|environment|system)",
+            "<env>", "<environment>"
+          ]
+        }
+      }
+    },
+    {
+      "id": "examples",
+      "name_zh": "示例",
+      "name_en": "Examples",
+      "tier": "recommended",
+      "coverage": {
+        "xml":     { "count": 3,  "total": 10 },
+        "markdown":{ "count": 4,  "total": 11 },
+        "others_grep": { "count": 51, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": [
+            "example", "good-example", "bad-example", "good_example", "bad_example",
+            "response_sample", "transcript_sample", "behavioral_question_example"
+          ]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": ["example", "usage example", "sample", "e.g."]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": [
+            "<example",
+            "[Ff]or example",
+            "e\\.g\\.",
+            "```[\\s\\S]{10,}?```"
+          ]
+        }
+      }
+    },
+    {
+      "id": "task_management",
+      "name_zh": "任务管理",
+      "name_en": "Task Management",
+      "tier": "situational",
+      "coverage": {
+        "xml":     { "count": 2,  "total": 10 },
+        "markdown":{ "count": 5,  "total": 11 },
+        "others_grep": { "count": 29, "total": 58, "note": "keyword scan, indicative only" }
+      },
+      "detection": {
+        "xml": {
+          "method": "tag",
+          "tags": [
+            "task_management", "workflows", "planning", "maximize_context_understanding"
+          ]
+        },
+        "markdown": {
+          "method": "heading",
+          "keywords": [
+            "task management", "planning", "task list", "todo",
+            "proactiveness", "workflow", "step"
+          ]
+        },
+        "fallback": {
+          "method": "regex",
+          "patterns": [
+            "[Tt]ask [Ll]ist",
+            "[Tt]odo",
+            "[Ss]tep.by.[Ss]tep",
+            "[Bb]reak.{0,10}(down|into).{0,10}step"
+          ]
+        }
+      }
+    }
+  ]
+}
